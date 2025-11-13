@@ -127,6 +127,8 @@ const JourneyFormModal: React.FC<JourneyFormModalProps> = ({ isOpen, onClose, jo
     };
     
     if (!isOpen) return null;
+    
+    const inputStyle = "w-full mt-1 p-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition";
 
     return (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 animate-in fade-in-0" onClick={onClose}>
@@ -142,11 +144,11 @@ const JourneyFormModal: React.FC<JourneyFormModalProps> = ({ isOpen, onClose, jo
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-xs font-medium text-muted-foreground">Data</label>
-                                <input type="date" name="date" value={formData.date} onChange={handleChange} required className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition" />
+                                <input type="date" name="date" value={formData.date} onChange={handleChange} required className={inputStyle} />
                             </div>
                              <div>
                                 <label className="text-xs font-medium text-muted-foreground">Feriado?</label>
-                                <div className="mt-1 p-3 flex items-center h-[50px] border border-gray-200 rounded-lg">
+                                <div className="mt-1 p-3 flex items-center h-[50px] bg-white border border-gray-200 rounded-lg">
                                     <input type="checkbox" id="isFeriado" name="isFeriado" checked={formData.isFeriado} onChange={handleChange} className="h-5 w-5 rounded text-primary focus:ring-primary" />
                                     <label htmlFor="isFeriado" className="ml-2 text-gray-700 text-sm">Sim, foi feriado</label>
                                 </div>
@@ -155,42 +157,42 @@ const JourneyFormModal: React.FC<JourneyFormModalProps> = ({ isOpen, onClose, jo
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="text-xs font-medium text-muted-foreground">Início</label>
-                                <input type="time" name="startAt" value={formData.startAt} onChange={handleChange} required className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition" />
+                                <input type="time" name="startAt" value={formData.startAt} onChange={handleChange} required className={inputStyle} />
                             </div>
                             <div>
                                 <label className="text-xs font-medium text-muted-foreground">Fim</label>
-                                <input type="time" name="endAt" value={formData.endAt} onChange={handleChange} required className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition" />
+                                <input type="time" name="endAt" value={formData.endAt} onChange={handleChange} required className={inputStyle} />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                              <div>
                                 <label className="text-xs font-medium text-muted-foreground">Refeição (min)</label>
-                                <input type="number" name="mealDuration" value={formData.mealDuration} onChange={handleChange} required className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition" />
+                                <input type="number" name="mealDuration" value={formData.mealDuration} onChange={handleChange} required className={inputStyle} />
                             </div>
                              <div>
                                 <label className="text-xs font-medium text-muted-foreground">Descanso (min)</label>
-                                <input type="number" name="restDuration" value={formData.restDuration} onChange={handleChange} className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition" />
+                                <input type="number" name="restDuration" value={formData.restDuration} onChange={handleChange} className={inputStyle} />
                             </div>
                         </div>
                         {settings?.kmEnabled && (
                          <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="text-xs font-medium text-muted-foreground">KM Inicial</label>
-                                <input type="number" step="0.1" name="kmStart" value={formData.kmStart} onChange={handleChange} className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition" />
+                                <input type="number" step="0.1" name="kmStart" value={formData.kmStart} onChange={handleChange} className={inputStyle} />
                             </div>
                              <div>
                                 <label className="text-xs font-medium text-muted-foreground">KM Final</label>
-                                <input type="number" step="0.1" name="kmEnd" value={formData.kmEnd} onChange={handleChange} className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition" />
+                                <input type="number" step="0.1" name="kmEnd" value={formData.kmEnd} onChange={handleChange} className={inputStyle} />
                             </div>
                         </div>
                         )}
                         <div>
                             <label className="text-xs font-medium text-muted-foreground">Nº do RV (opcional)</label>
-                            <input type="text" name="rvNumber" value={formData.rvNumber} onChange={handleChange} className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition" />
+                            <input type="text" name="rvNumber" value={formData.rvNumber} onChange={handleChange} className={inputStyle} />
                         </div>
                         <div>
                             <label className="text-xs font-medium text-muted-foreground">Notas (opcional)</label>
-                            <textarea name="notes" value={formData.notes} onChange={handleChange} rows={3} className="w-full mt-1 p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition"></textarea>
+                            <textarea name="notes" value={formData.notes} onChange={handleChange} rows={3} className={`${inputStyle} h-auto`}></textarea>
                         </div>
                     </form>
                 </div>

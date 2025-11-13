@@ -5,7 +5,6 @@ import { useJourneys } from '../contexts/JourneyContext';
 import { getMonthSummary, formatMinutesToHours } from '../lib/utils';
 import OverlappingCard from '../components/ui/OverlappingCard';
 import Skeleton from '../components/ui/Skeleton';
-import { CalendarPageContent } from './CalendarPage'; // Importa o conteúdo do calendário
 import { PlusCircle, BarChart, Settings, Route, CalendarDays } from 'lucide-react';
 import { MonthSummary } from '../types';
 
@@ -118,20 +117,12 @@ const HomePage: React.FC = () => {
                         </div>
                     )}
                 </OverlappingCard>
-                
-                {/* Widget de Calendário */}
-                <div className="pt-2">
-                     <h3 className="text-lg font-bold text-primary-dark mb-3">Calendário de Escala</h3>
-                     <div className="bg-white p-4 rounded-2xl shadow-soft">
-                        <CalendarPageContent isWidget={true} />
-                     </div>
-                </div>
 
                 <div className="pt-2">
                      <h3 className="text-lg font-bold text-primary-dark mb-3">Ações Rápidas</h3>
                     <div className="grid grid-cols-2 gap-3">
                         <ActionCard icon={BarChart} title="Minhas Jornadas" subtitle="Ver histórico completo" onClick={() => navigate('/journeys')} />
-                        <ActionCard icon={CalendarDays} title="Calendário Completo" subtitle="Planeje seus dias" onClick={() => navigate('/calendar')} />
+                        <ActionCard icon={CalendarDays} title="Calendário de Escala" subtitle="Planeje seus dias" onClick={() => navigate('/calendar')} />
                         <ActionCard icon={Route} title="Exportar Relatório" subtitle="Gerar PDF do período" onClick={() => navigate('/reports')} />
                         <ActionCard icon={Settings} title="Configurações" subtitle="Ajustar sua jornada" onClick={() => navigate('/settings')} />
                     </div>

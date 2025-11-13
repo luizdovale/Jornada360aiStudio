@@ -54,7 +54,7 @@ const SettingsPage: React.FC = () => {
         };
         const success = await saveSettings(dataToSave);
         if (success) {
-            toast({ title: 'Configurações salvas!' });
+            // Navega para a home após salvar com sucesso
             navigate('/');
         }
         setLoading(false);
@@ -71,12 +71,13 @@ const SettingsPage: React.FC = () => {
         );
     }
     
-    const inputStyle = "w-full mt-1 p-3 bg-white border border-gray-300 rounded-lg text-primary-dark focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition";
+    // Estilo "flutuante" para os inputs
+    const inputStyle = "w-full mt-1 p-3 bg-white border border-gray-200 rounded-lg text-primary-dark shadow-sm transition-all duration-200 focus:shadow-md focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark";
 
     return (
         <div className="space-y-6">
             <h1 className="text-title-lg text-primary-dark">Configurações</h1>
-            <div className="bg-white p-6 rounded-2xl shadow-soft">
+            <div className="bg-white p-6 rounded-2xl shadow-card">
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="jornadaBase" className="block text-sm font-medium text-gray-700">Jornada Diária</label>
