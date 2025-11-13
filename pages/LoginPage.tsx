@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
@@ -8,7 +7,6 @@ import { Sun } from 'lucide-react';
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
-    const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -28,8 +26,7 @@ const LoginPage: React.FC = () => {
             toast({ title: "Erro de autenticação", description: "Email ou senha incorretos. Por favor, tente novamente.", variant: 'destructive' });
         } else {
             toast({ title: "Login bem-sucedido!", description: "Bem-vindo de volta." });
-            // Passa o nome para a próxima página para a saudação
-            navigate('/', { state: { tempName: firstName } });
+            navigate('/');
         }
     };
 
@@ -46,17 +43,6 @@ const LoginPage: React.FC = () => {
                 <div className="bg-card rounded-3xl shadow-card p-6 space-y-5">
                     <h2 className="text-xl font-bold text-primary-dark">Entrar na sua conta</h2>
                     <form onSubmit={handleLogin} className="space-y-4">
-                        <div>
-                            <label className="text-xs font-medium text-muted-foreground">Primeiro Nome</label>
-                            <input
-                                type="text"
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                required
-                                className="w-full mt-1 p-3 bg-white border border-gray-300 rounded-lg text-primary-dark focus:ring-2 focus:ring-primary-dark/50 focus:border-primary-dark transition"
-                                placeholder="Como devemos te chamar?"
-                            />
-                        </div>
                         <div>
                             <label className="text-xs font-medium text-muted-foreground">Email</label>
                             <input

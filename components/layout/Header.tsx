@@ -1,15 +1,13 @@
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Menu, User as UserIcon, Home } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC<{ onMenuClick: () => void }> = ({ onMenuClick }) => {
     const { user } = useAuth();
-    const location = useLocation();
     
-    // Prioriza o nome temporário passado pelo login, depois o metadata, e por fim um padrão.
-    const tempName = location.state?.tempName;
-    const userName = tempName || user?.user_metadata?.nome || 'Usuário';
+    // Simplificado: Busca o nome apenas dos metadados do usuário autenticado.
+    const userName = user?.user_metadata?.nome || 'Usuário';
 
     return (
         <header className="bg-primary pt-10 pb-20 px-5 text-white">

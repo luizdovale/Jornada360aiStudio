@@ -9,7 +9,6 @@ const ReportsPage: React.FC = () => {
     const { journeys, settings } = useJourneys();
     const { user } = useAuth();
     
-    // Função para calcular o período contábil atual
     const getCurrentAccountingPeriod = () => {
         if (!settings) {
             const today = new Date();
@@ -23,12 +22,10 @@ const ReportsPage: React.FC = () => {
         
         const now = new Date();
         const startDay = settings.monthStartDay || 1;
-        
         let startDate = new Date(now.getFullYear(), now.getMonth(), startDay);
         if (now.getDate() < startDay) {
             startDate = new Date(now.getFullYear(), now.getMonth() - 1, startDay);
         }
-        
         let endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDay - 1);
         
         return {
@@ -63,35 +60,33 @@ const ReportsPage: React.FC = () => {
         const userName = user?.user_metadata?.nome || 'Usuário';
         const period = `${new Date(startDate + 'T00:00:00').toLocaleDateString('pt-BR')} a ${new Date(endDate + 'T00:00:00').toLocaleDateString('pt-BR')}`;
 
-        // Cabeçalho
-        doc.setFontSize(20);
+        // Cabeçalho minimizado
+        doc.setFontSize(16);
         doc.setTextColor("#0C2344");
-        doc.text("Jornada360 - Relatório de Jornadas", 15, 20);
-
-        doc.setFontSize(12);
+        doc.text("Jornada360 - Relatório", 15, 15);
+        doc.setFontSize(10);
         doc.setTextColor("#6B7280");
-        doc.text(`Motorista: ${userName}`, 15, 30);
-        doc.text(`Período: ${period}`, 15, 36);
+        doc.text(`Motorista: ${userName} | Período: ${period}`, 15, 22);
 
-        // Resumo
+
+        // Resumo simplificado
         const summary = getMonthSummary(filteredJourneys, settings);
-        doc.setFontSize(14);
+        doc.setFontSize(12);
         doc.setTextColor("#0C2344");
-        doc.text("Resumo do Período", 15, 50);
+        doc.text("Resumo do Período", 15, 35);
 
         const summaryText = `
-        - Total de Dias Trabalhados: ${summary.totalDiasTrabalhados}
-        - Total de Horas Trabalhadas: ${formatMinutesToHours(summary.totalTrabalhado)}
-        - Total de Horas Extras (50%): ${formatMinutesToHours(summary.horasExtras50)}
-        - Total de Horas Extras (100%): ${formatMinutesToHours(summary.horasExtras100)}
-        - Total de KM Rodados: ${summary.kmRodados.toFixed(1)} km
+- Dias Trabalhados: ${summary.totalDiasTrabalhados}
+- Horas Extras (50%): ${formatMinutesToHours(summary.horasExtras50)}
+- Horas Extras (100%): ${formatMinutesToHours(summary.horasExtras100)}
+- KM Rodados: ${summary.kmRodados.toFixed(1)} km
         `;
-        doc.setFontSize(11);
+        doc.setFontSize(10);
         doc.setTextColor("#374151");
-        doc.text(summaryText, 15, 58);
+        doc.text(summaryText.trim(), 15, 42);
 
-        // Tabela de Jornadas
-        const tableColumn = ["Data", "Início", "Fim", "Total Dia", "HE 50%", "HE 100%", "KM", "Feriado"];
+        // Tabela de Jornadas otimizada
+        const tableColumn = ["Data", "Início", "Fim", "Total", "HE 50%", "HE 100%", "KM", "RV", "Observações"];
         const tableRows: (string | number)[][] = [];
 
         const sortedJourneys = [...filteredJourneys].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -106,7 +101,8 @@ const ReportsPage: React.FC = () => {
                 formatMinutesToHours(calcs.horasExtras50),
                 formatMinutesToHours(calcs.horasExtras100),
                 calcs.kmRodados.toFixed(1),
-                journey.isFeriado ? 'Sim' : 'Não',
+                journey.rvNumber || '-',
+                journey.notes || '-',
             ];
             tableRows.push(journeyData);
         });
@@ -115,16 +111,20 @@ const ReportsPage: React.FC = () => {
         doc.autoTable({
             head: [tableColumn],
             body: tableRows,
-            startY: 95,
+            startY: 65,
             theme: 'grid',
-            headStyles: { fillColor: "#0C2344" }
+            headStyles: { fillColor: "#0C2344" },
+            styles: { fontSize: 8 },
+            columnStyles: {
+                8: { cellWidth: 'auto' } // Coluna de Observações
+            }
         });
 
         // Rodapé
         const pageCount = doc.internal.getNumberOfPages();
         for (let i = 1; i <= pageCount; i++) {
             doc.setPage(i);
-            doc.setFontSize(10);
+            doc.setFontSize(8);
             doc.setTextColor("#BDC6D1");
             doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.getWidth() / 2, 287, { align: 'center' });
             doc.text(`Gerado em: ${new Date().toLocaleDateString('pt-BR')}`, 15, 287);
