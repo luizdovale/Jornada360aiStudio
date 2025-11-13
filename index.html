@@ -65,6 +65,17 @@
             }
         }
     </script>
+<style>
+    /* Corrige o estilo de preenchimento automático do navegador (fundo azul) */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-text-fill-color: #0C2344 !important; /* Cor do texto (escuro) */
+        -webkit-box-shadow: 0 0 0 30px white inset !important; /* Força o fundo branco */
+        background-clip: content-box !important;
+    }
+</style>
 <script type="importmap">
 {
   "imports": {
