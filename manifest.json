@@ -1,0 +1,24 @@
+
+{
+  "short_name": "Jornada360",
+  "name": "Jornada360 Web",
+  "description": "Controle sua jornada de trabalho de motorista com facilidade.",
+  "icons": [
+    {
+      "src": "https://assets.website-files.com/6495813359574d395a14603c/64975558f3521369e8329b3a_icon-logobig.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://assets.website-files.com/6495813359574d395a14603c/64975558f3521369e8329b3a_icon-logobig.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0C2344",
+  "background_color": "#F5F7FA"
+}
