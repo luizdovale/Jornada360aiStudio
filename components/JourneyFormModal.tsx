@@ -24,7 +24,7 @@ const JourneyFormModal: React.FC<JourneyFormModalProps> = ({ isOpen, onClose, jo
         date: new Date().toISOString().split('T')[0],
         startAt: '08:00',
         endAt: '18:00',
-        mealDuration: 60,
+        mealDuration: 61,
         restDuration: 0,
         isFeriado: false,
         kmStart: 0,
